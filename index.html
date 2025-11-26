@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn English with vocabulary, grammar, quizzes and more">
+    <title>EnglishMaster - Learn English</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- CSS - Use ./ for relative paths -->
+    <link rel="stylesheet" href="./css/style.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- ==================== SIDEBAR NAVIGATION ==================== -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>EnglishMaster</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item active" data-section="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </li>
+                <li class="nav-item" data-section="vocabulary">
+                    <i class="fas fa-book"></i>
+                    <span>Vocabulary</span>
+                </li>
+                <li class="nav-item" data-section="grammar">
+                    <i class="fas fa-spell-check"></i>
+                    <span>Grammar</span>
+                </li>
+                <li class="nav-item" data-section="flashcards">
+                    <i class="fas fa-clone"></i>
+                    <span>Flashcards</span>
+                </li>
+                <li class="nav-item" data-section="quiz">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Quiz</span>
+                </li>
+                <li class="nav-item" data-section="speaking">
+                    <i class="fas fa-microphone"></i>
+                    <span>Speaking</span>
+                </li>
+                <li class="nav-item" data-section="progress">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </li>
+            </ul>
+            <div class="user-profile">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=learner" alt="User Avatar">
+                <span class="user-name">Learner</span>
+                <span class="user-level">Level: Beginner</span>
+            </div>
+        </nav>
+
+        <!-- ==================== MAIN CONTENT ==================== -->
+        <main class="main-content">
+            
+            <!-- ========== DASHBOARD SECTION ========== -->
+            <section id="dashboard" class="section active">
+                <div class="section-header">
+                    <h1>Welcome Back! 👋</h1>
+                    <p>Continue your English learning journey</p>
+                </div>
+                
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon purple">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="streak-count">0</h3>
+                            <p>Day Streak</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon pink">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="words-learned">0</h3>
+                            <p>Words Learned</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="quiz-score">0%</h3>
+                            <p>Quiz Accuracy</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="time-spent">0m</h3>
+                            <p>Time Spent</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Cards -->
+                <div class="dashboard-grid">
+                    <!-- Daily Goal Card -->
+                    <div class="card daily-goal">
+                        <h3><i class="fas fa-bullseye"></i> Daily Goal</h3>
+                        <div class="progress-ring-container">
+                            <svg class="progress-ring" width="150" height="150">
+                                <defs>
+                                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" style="stop-color:#667eea"/>
+                                        <stop offset="100%" style="stop-color:#764ba2"/>
+                                    </linearGradient>
+                                </defs>
+                                <circle class="progress-ring-bg" cx="75" cy="75" r="65"/>
+                                <circle class="progress-ring-progress" cx="75" cy="75" r="65" id="daily-progress"/>
+                            </svg>
+                            <div class="progress-text">
+                                <span id="daily-xp">0</span>
+                                <span>/ 50 XP</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Word of the Day Card -->
+                    <div class="card word-of-day">
+                        <h3><i class="fas fa-star"></i> Word of the Day</h3>
+                        <div class="word-content">
+                            <h2 id="wotd-word">Loading...</h2>
+                            <p class="pronunciation" id="wotd-pronunciation"></p>
+                            <p class="word-type" id="wotd-type"></p>
+                            <p class="definition" id="wotd-definition"></p>
+                            <p class="example" id="wotd-example"></p>
+                            <button class="btn-speak" onclick="speakWord(document.getElementById('wotd-word').textContent)">
+                                <i class="fas fa-volume-up"></i> Listen
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity Card -->
+                    <div class="card recent-activity">
+                        <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                        <ul class="activity-list" id="activity-list">
+                            <li>
+                                <i class="fas fa-info-circle"></i>
+                                <span>Start learning to see activity</span>
+                                <time>Now</time>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Bonus XP Section -->
+                <div class="card reward-section">
+                    <h3>🎁 Get Extra XP</h3>
+                    <p>Complete activities to earn bonus XP!</p>
+                    <button class="btn-watch-ad" onclick="watchRewardedAd()">
+                        <i class="fas fa-gift"></i> Claim Bonus (+10 XP)
+                    </button>
+                </div>
+            </section>
+
+            <!-- ========== VOCABULARY SECTION ========== -->
+            <section id="vocabulary" class="section">
+                <div class="section-header">
+                    <h1>📚 Vocabulary Builder</h1>
+                    <p>Expand your English vocabulary</p>
+                </div>
+                
+                <!-- Category Filter Tabs -->
+                <div class="category-tabs">
+                    <button class="tab-btn active" data-category="all">All</button>
+                    <button class="tab-btn" data-category="beginner">Beginner</button>
+                    <button class="tab-btn" data-category="intermediate">Intermediate</button>
+                    <button class="tab-btn" data-category="advanced">Advanced</button>
+                    <button class="tab-btn" data-category="business">Business</button>
+                    <button class="tab-btn" data-category="academic">Academic</button>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="vocab-search" placeholder="Search vocabulary...">
+                </div>
+
+                <!-- Vocabulary Cards Grid -->
+                <div class="vocabulary-grid" id="vocabulary-grid">
+                    <p style="text-align:center; padding:40px; color:#666;">Loading vocabulary...</p>
+                </div>
+            </section>
+
+            <!-- ========== GRAMMAR SECTION ========== -->
+            <section id="grammar" class="section">
+                <div class="section-header">
+                    <h1>✍️ Grammar Lessons</h1>
+                    <p>Master English grammar rules</p>
+                </div>
+
+                <!-- Grammar Topics List -->
+                <div class="grammar-topics" id="grammar-topics">
+                    <p style="text-align:center; padding:40px; color:#666;">Loading grammar lessons...</p>
+                </div>
+
+                <!-- Grammar Lesson View (Hidden by default) -->
+                <div class="grammar-lesson" id="grammar-lesson" style="display: none;">
+                    <button class="btn-back" id="back-to-topics">
+                        <i class="fas fa-arrow-left"></i> Back to Topics
+                    </button>
+                    <div class="lesson-content" id="lesson-content"></div>
+                    <div class="grammar-exercises" id="grammar-exercises"></div>
+                </div>
+            </section>
+
+            <!-- ========== FLASHCARDS SECTION ========== -->
+            <section id="flashcards" class="section">
+                <div class="section-header">
+                    <h1>🎴 Flashcards</h1>
+                    <p>Review and memorize vocabulary</p>
+                </div>
+
+                <!-- Flashcard Controls -->
+                <div class="flashcard-controls">
+                    <select id="flashcard-category">
+                        <option value="all">All Categories</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                    <button class="btn-shuffle" id="shuffle-cards">
+                        <i class="fas fa-random"></i> Shuffle
+                    </button>
+                </div>
+
+                <!-- Flashcard Container -->
+                <div class="flashcard-container">
+                    <div class="flashcard" id="flashcard">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <h2 id="flashcard-word">Click to start</h2>
+                                <p id="flashcard-pronunciation"></p>
+                                <button class="btn-speak" id="flashcard-speak">
+                                    <i class="fas fa-volume-up"></i>
+                                </button>
+                            </div>
+                            <div class="flashcard-back">
+                                <p class="word-type" id="flashcard-type"></p>
+                                <p class="definition" id="flashcard-definition"></p>
+                                <p class="example" id="flashcard-example"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="flashcard-nav">
+                        <button class="btn-nav" id="prev-card">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span class="card-counter">
+                            <span id="current-card">1</span> / <span id="total-cards">0</span>
+                        </span>
+                        <button class="btn-nav" id="next-card">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flashcard-actions">
+                        <button class="btn-action btn-wrong" id="mark-wrong">
+                            <i class="fas fa-times"></i> Still Learning
+                        </button>
+                        <button class="btn-action btn-correct" id="mark-correct">
+                            <i class="fas fa-check"></i> Got It!
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== QUIZ SECTION ========== -->
+            <section id="quiz" class="section">
+                <div class="section-header">
+                    <h1>❓ Quiz Time</h1>
+                    <p>Test your knowledge</p>
+                </div>
+
+                <!-- Quiz Setup -->
+                <div class="quiz-setup" id="quiz-setup">
+                    <div class="quiz-options">
+                        <div class="option-group">
+                            <label>Quiz Type</label>
+                            <select id="quiz-type">
+                                <option value="vocabulary">Vocabulary</option>
+                                <option value="grammar">Grammar</option>
+                                <option value="mixed">Mixed</option>
+                            </select>
+                        </div>
+                        <div class="option-group">
+                            <label>Difficulty</label>
+                            <select id="quiz-difficulty">
+                                <option value="easy">Easy</option>
+                                <option value="medium">Medium</option>
+                                <option value="hard">Hard</option>
+                            </select>
+                        </div>
+                        <div class="option-group">
+                            <label>Number of Questions</label>
+                            <select id="quiz-questions">
+                                <option value="5">5 Questions</option>
+                                <option value="10" selected>10 Questions</option>
+                                <option value="20">20 Questions</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn-start-quiz" id="start-quiz">
+                        <i class="fas fa-play"></i> Start Quiz
+                    </button>
+                </div>
+
+                <!-- Quiz Container -->
+                <div class="quiz-container" id="quiz-container" style="display: none;">
+                    <div class="quiz-header">
+                        <div class="quiz-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="quiz-progress-fill"></div>
+                            </div>
+                            <span id="quiz-question-number">1/10</span>
+                        </div>
+                        <div class="quiz-timer">
+                            <i class="fas fa-clock"></i>
+                            <span id="quiz-timer">00:00</span>
+                        </div>
+                        <div class="quiz-score">
+                            Score: <span id="current-score">0</span>
+                        </div>
+                    </div>
+                    <div class="quiz-question" id="quiz-question"></div>
+                    <div class="quiz-answers" id="quiz-answers"></div>
+                    <button class="btn-next-question" id="next-question" style="display: none;">
+                        Next Question <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- Quiz Results -->
+                <div class="quiz-results" id="quiz-results" style="display: none;">
+                    <div class="results-card">
+                        <div class="results-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h2>Quiz Complete!</h2>
+                        <div class="results-stats">
+                            <div class="result-stat">
+                                <span class="stat-value" id="final-score">0</span>
+                                <span class="stat-label">Score</span>
+                            </div>
+                            <div class="result-stat">
+                                <span class="stat-value" id="correct-answers">0/10</span>
+                                <span class="stat-label">Correct</span>
+                            </div>
+                            <div class="result-stat">
+                                <span class="stat-value" id="time-taken">00:00</span>
+                                <span class="stat-label">Time</span>
+                            </div>
+                        </div>
+                        <div class="results-message" id="results-message"></div>
+                        <div class="results-actions">
+                            <button class="btn-review" id="review-answers">
+                                <i class="fas fa-eye"></i> Review
+                            </button>
+                            <button class="btn-retry" id="retry-quiz">
+                                <i class="fas fa-redo"></i> Try Again
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== SPEAKING SECTION ========== -->
+            <section id="speaking" class="section">
+                <div class="section-header">
+                    <h1>🎤 Speaking Practice</h1>
+                    <p>Improve your pronunciation</p>
+                </div>
+
+                <div class="speaking-container">
+                    <!-- Practice Sentence -->
+                    <div class="speaking-card">
+                        <h3>Practice Sentence</h3>
+                        <p class="speaking-text" id="speaking-text">The quick brown fox jumps over the lazy dog.</p>
+                        <button class="btn-speak-large" id="listen-sentence">
+                            <i class="fas fa-volume-up"></i> Listen
+                        </button>
+                    </div>
+
+                    <!-- Recording Section -->
+                    <div class="recording-card">
+                        <h3>Your Turn</h3>
+                        <div class="recording-visualizer" id="visualizer">
+                            <div class="visualizer-bar"></div>
+                            <div class="visualizer-bar"></div>
+                            <div class="visualizer-bar"></div>
+                            <div class="visualizer-bar"></div>
+                            <div class="visualizer-bar"></div>
+                        </div>
+                        <button class="btn-record" id="record-btn">
+                            <i class="fas fa-microphone"></i>
+                            <span>Hold to Record</span>
+                        </button>
+                        <p class="recording-result" id="recording-result"></p>
+                    </div>
+
+                    <!-- New Sentence Button -->
+                    <div class="speaking-controls">
+                        <button class="btn-new-sentence" id="new-sentence">
+                            <i class="fas fa-random"></i> New Sentence
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== PROGRESS SECTION ========== -->
+            <section id="progress" class="section">
+                <div class="section-header">
+                    <h1>📊 Your Progress</h1>
+                    <p>Track your learning journey</p>
+                </div>
+
+                <div class="progress-overview">
+                    <!-- Level Card -->
+                    <div class="progress-card level-card">
+                        <h3>Current Level</h3>
+                        <div class="level-display">
+                            <span class="level-number" id="user-level">1</span>
+                            <span class="level-title" id="level-title">Beginner</span>
+                        </div>
+                        <div class="xp-progress">
+                            <div class="xp-bar">
+                                <div class="xp-fill" id="xp-fill" style="width: 0%;"></div>
+                            </div>
+                            <span id="xp-text">0 / 100 XP to next level</span>
+                        </div>
+                    </div>
+
+                    <!-- Achievements Card -->
+                    <div class="progress-card achievements-card">
+                        <h3>Achievements</h3>
+                        <div class="achievements-grid" id="achievements-grid"></div>
+                    </div>
+                </div>
+
+                <!-- Skills Progress -->
+                <div class="progress-charts">
+                    <div class="chart-card">
+                        <h3>Skills Progress</h3>
+                        <div class="skills-list" id="skills-list"></div>
+                    </div>
+                </div>
+
+                <!-- Learning Calendar -->
+                <div class="learning-history">
+                    <h3>Learning History (Last 35 Days)</h3>
+                    <div class="history-calendar" id="history-calendar"></div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ==================== TOAST NOTIFICATIONS ==================== -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- ==================== MODAL ==================== -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <!-- IMPORTANT: Use ./ for relative paths -->
+    <script src="./data/content.js"></script>
+    <script src="./js/app.js"></script>
+    <script src="./js/vocabulary.js"></script>
+    <script src="./js/grammar.js"></script>
+    <script src="./js/flashcards.js"></script>
+    <script src="./js/quiz.js"></script>
+    <script src="./js/progress.js"></script>
+    <script src="./js/ads.js"></script>
+    
+    <!-- Service Worker for PWA -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js')
+                .then(function(reg) { console.log('SW registered'); })
+                .catch(function(err) { console.log('SW failed:', err); });
+        }
+    </script>
+</body>
+</html>

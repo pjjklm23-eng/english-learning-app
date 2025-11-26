@@ -1,0 +1,21 @@
+{
+    "name": "EnglishMaster - Learn English",
+    "short_name": "EnglishMaster",
+    "description": "Learn English with vocabulary, grammar, quizzes and more",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#1a1a2e",
+    "theme_color": "#667eea",
+    "icons": [
+        {
+            "src": "https://via.placeholder.com/192x192/667eea/ffffff?text=EM",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "https://via.placeholder.com/512x512/667eea/ffffff?text=EM",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
